@@ -22,11 +22,19 @@ process.env.MEDPLUM_VERSION = packageJson.version + '-' + gitHash;
 export default defineConfig({
   envPrefix: ['MEDPLUM_', 'GOOGLE_', 'RECAPTCHA_'],
   plugins: [react()],
+  base: '/medplum-app/',
   server: {
     port: 3000,
+    cors: {
+      origin: '*', // ✅ Allow all origins in dev
+    },
   },
   preview: {
     port: 3000,
+    allowedHosts: ['narrative-provision-bulgarian-clip.trycloudflare.com'],
+    headers: {
+      'Access-Control-Allow-Origin': '*', // ✅ Allow all origins in preview
+    },
   },
   publicDir: 'static',
   build: {
@@ -40,3 +48,4 @@ export default defineConfig({
     },
   },
 });
+
